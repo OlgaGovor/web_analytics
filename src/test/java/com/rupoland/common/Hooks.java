@@ -14,14 +14,25 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class Hooks extends BaseTest {
 
-    String csvFile = "c:/olga.govor/website.csv";
+    String csvFile = "website.csv";
+    String resultFile= "results.csv";
+
+    String csvFilePath;
+    String resultFilePath;
+
+    public Hooks() {
+        File resourcesDirectory = new File("src/test/resources");
+
+        csvFilePath = new File(resourcesDirectory.getAbsolutePath()+ "/" + csvFile).getPath();
+        resultFilePath = new File(resourcesDirectory.getAbsolutePath()+ "/" + resultFile).getPath();
+    }
 
     public List<String> getWebsiteNames() throws IOException {
 
         String line = "";
         String cvsSplitBy = ",";
 
-        BufferedReader br = new BufferedReader(new FileReader(csvFile));
+        BufferedReader br = new BufferedReader(new FileReader(csvFilePath));
         List<String> websites = new ArrayList<>();
         while ((line = br.readLine()) != null) {
             String[] str = line.split(cvsSplitBy);
@@ -30,9 +41,9 @@ public class Hooks extends BaseTest {
         return websites;
     }
 
-    public void putUsers(HashMap webs) throws IOException {
+    public void saveResults(HashMap webs) throws IOException {
 
-        FileWriter fw = new FileWriter(csvFile);
+        FileWriter fw = new FileWriter(resultFilePath);
         BufferedWriter bw = new BufferedWriter(fw);
         Iterator it = webs.entrySet().iterator();
         while (it.hasNext()) {
@@ -72,6 +83,11 @@ public class Hooks extends BaseTest {
 
     @Test
     public void testFirst() throws IOException, InterruptedException {
+
+
+        List<String> websiteName = getWebsiteNames();
+        HashMap<String, String> numberOfUsersPerSite = new HashMap<>();
+
         System.setProperty("webdriver.chrome.driver", "src/test/resources/selenium/chromedriver/chromedriver.exe");
         Configuration.browser = "chrome";
         open("https://id.pr-cy.ru/signup/login");
@@ -81,8 +97,7 @@ public class Hooks extends BaseTest {
         getElement(By.xpath("//button[@type='submit']")).click();
 
         open("https://a.pr-cy.ru/");
-        List<String> websiteName = getWebsiteNames();
-        HashMap<String, String> numberOfUsersPerSite = new HashMap<>();
+
 
         for (int i = 0; i < websiteName.size(); i++) {
             String numberOfUsers = "";
@@ -101,7 +116,7 @@ public class Hooks extends BaseTest {
             System.out.println(websiteName.get(i) + " - " + numberOfUsers + "");
 
         }
-        putUsers(numberOfUsersPerSite);
+        saveResults(numberOfUsersPerSite);
         close();
     }
 }
