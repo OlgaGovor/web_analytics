@@ -8,23 +8,30 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
 
 public class Hooks extends BaseTest {
 
     String csvFile = "website.csv";
-    String resultFile= "results.csv";
+    String resultFile = "results.csv";
 
     String csvFilePath;
     String resultFilePath;
+    private String baseUrl = "https://a.pr-cy.ru/";
 
     public Hooks() {
         File resourcesDirectory = new File("src/test/resources");
 
-        csvFilePath = new File(resourcesDirectory.getAbsolutePath()+ "/" + csvFile).getPath();
-        resultFilePath = new File(resourcesDirectory.getAbsolutePath()+ "/" + resultFile).getPath();
+        csvFilePath = new File(resourcesDirectory.getAbsolutePath() + "/" + csvFile).getPath();
+        resultFilePath = new File(resourcesDirectory.getAbsolutePath() + "/" + resultFile).getPath();
+
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/selenium/chromedriver/chromedriver.exe");
+        Configuration.browser = "chrome";
     }
 
     public List<String> getWebsiteNames() throws IOException {
@@ -41,63 +48,60 @@ public class Hooks extends BaseTest {
         return websites;
     }
 
-    public void saveResults(HashMap webs) throws IOException {
+    public void saveResults(HashMap<String, String> siteStatistics) throws IOException {
 
-        FileWriter fw = new FileWriter(resultFilePath);
-        BufferedWriter bw = new BufferedWriter(fw);
-        Iterator it = webs.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            String str = pair.getKey() + "," + pair.getValue() + "\n";
-            it.remove();
-            bw.write(str);
+        try (PrintWriter writer = new PrintWriter(new File(resultFilePath))) {
+            siteStatistics.entrySet().stream().forEach(e -> writer.print(e.getKey() + "," + e.getValue() + "\n"));
         }
-        bw.close();
-        fw.close();
+
     }
 
     public String checkWebsite(String websiteName) throws InterruptedException {
-        WebElement input = getElement(By.xpath("//form[@id='analysis']//input"));
-        input.clear();
-        input.sendKeys(websiteName);
-        getElement(By.xpath("//form[@id='analysis']//button[@type='submit']")).click();
+        submitRequest(websiteName);
         Thread.sleep(3000);
-        SelenideElement closeBtn = getElement(By.cssSelector("button.close"));
-        if (closeBtn.exists()) {
-            closeBtn.click();
-        }
-        String str = getElement(By.cssSelector("h1 > a")).getText();
-        //if (websiteName.get(i).contains(str)) {
+
+        checkAndClosePopUp();
+
+
         SelenideElement el = getElement(By.xpath("//div[@description-id='publicStatisticsDescription'][@test-status='info']"));
         String numberOfUsers = "";
         if (el.exists()) {
             WebElement numberOfUsersPerDay = getElement(By.xpath("//table[contains(@class,'table-content-test')]/tbody/tr[2]/td[2]"));
             Thread.sleep(300);
-            numberOfUsers = numberOfUsersPerDay.getText();
+            numberOfUsers = numberOfUsersPerDay.getText().replaceAll(" ", "");
         } else {
-            numberOfUsers = "data not exist";
+            numberOfUsers = "null";
         }
-        //}
+
         return numberOfUsers;
+    }
+
+    private void checkAndClosePopUp() {
+        try {
+            SelenideElement closeBtn = getElement(By.cssSelector("button.close"));
+            if (closeBtn.exists()) {
+                closeBtn.click();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void submitRequest(String websiteName) {
+        WebElement input = getElement(By.xpath("//form[@id='analysis']//input"));
+        input.clear();
+        input.sendKeys(websiteName);
+        getElement(By.xpath("//form[@id='analysis']//button[@type='submit']")).click();
     }
 
     @Test
     public void testFirst() throws IOException, InterruptedException {
-
-
         List<String> websiteName = getWebsiteNames();
-        HashMap<String, String> numberOfUsersPerSite = new HashMap<>();
+        HashMap<String, String> numberOfUsersPerSite = new LinkedHashMap<>();
 
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/selenium/chromedriver/chromedriver.exe");
-        Configuration.browser = "chrome";
-        open("https://id.pr-cy.ru/signup/login");
+        login();
 
-        getElement(By.id("login_email")).sendKeys("rigaya@ua.fm");
-        getElement(By.id("password")).sendKeys("1q2w3e4r5t");
-        getElement(By.xpath("//button[@type='submit']")).click();
-
-        open("https://a.pr-cy.ru/");
-
+        open(baseUrl);
 
         for (int i = 0; i < websiteName.size(); i++) {
             String numberOfUsers = "";
@@ -114,9 +118,17 @@ public class Hooks extends BaseTest {
 
             numberOfUsersPerSite.put(websiteName.get(i), numberOfUsers);
             System.out.println(websiteName.get(i) + " - " + numberOfUsers + "");
-
+            saveResults(numberOfUsersPerSite);
         }
-        saveResults(numberOfUsersPerSite);
+
         close();
+    }
+
+    private void login() {
+        open("https://id.pr-cy.ru/signup/login");
+
+        getElement(By.id("login_email")).sendKeys("rigaya@ua.fm");
+        getElement(By.id("password")).sendKeys("1q2w3e4r5t");
+        getElement(By.xpath("//button[@type='submit']")).click();
     }
 }
