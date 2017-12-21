@@ -1,0 +1,134 @@
+#lobby names
+Betting=Betting
+Vegas=Vegas
+Macau=Macau
+Casino=Casino
+LiveCasino=Live Casino
+Games=Games
+Scratchcards=Scratchcards
+Bingo=Bingo
+Poker=Poker
+
+
+#category names
+HOME=HOME
+PROMOTIONS=PROMOTIONS
+A-Z=A-Z
+*INSTANTWIN*=* INSTANT WIN *
+NEW=NEW
+FAVOURITES=FAVOURITES
+RECENTLYPLAYED=RECENTLY PLAYED
+JACKPOTS=JACKPOTS
+TABLE=TABLE
+SLOTS=SLOTS
+VIP=VIP
+ROULETTE=ROULETTE
+BLACKJACK=BLACKJACK
+BACCARAT=BACCARAT
+POKER=POKER
+
+
+#lobby urls
+Betting.desktop.url=http://sports.williamhill${env}.com
+Betting.mobile.url=http://sports.williamhill${env}.com
+Vegas.desktop.url=https://vegas.williamhill${env}.com
+Vegas.mobile.url=https://vegas.williamhill${env}.com
+Casino.desktop.url=https://casino.williamhill${env}.com
+Casino.mobile.url=https://mobile.williamhill${env}.com/casino
+LiveCasino.desktop.url=https://livecasino.williamhill${env}.com
+LiveCasino.mobile.url=https://livecasino.williamhill${env}.com
+Macau.desktop.url=https://macau.williamhill${env}.com
+Macau.mobile.url=https://macau.williamhill${env}.com
+Games.desktop.url=https://games.williamhill${env}.com
+Games.mobile.url=https://games.williamhill${env}.com
+Scratchcards.desktop.url=https://scratchcards.williamhill${env}.com
+Scratchcards.mobile.url=https://scratchcards.williamhill${env}.com
+Bingo.desktop.url=http://bingo.williamhill${env}.com
+Bingo.mobile.url=https://mobile.williamhill${env}.com/bingo
+Poker.desktop.url=https://poker.williamhill${env}.com
+
+#transactions games tabs
+transactions.tab.Vegas=Vegas
+transactions.tab.Macau=Macau
+transactions.tab.Casino=Casino
+transactions.tab.LiveCasino=Live Casino
+transactions.tab.Games=Games
+transactions.tab.Scratchcards=Scratchcards
+transactions.tab.Bingo=Bingo
+transactions.tab.Poker=Poker
+
+#lobby categories and sections
+home.section.recentlyplayed=Recently Played
+
+#login
+login.error.invalid=Sorry, we did not recognise your login details. Please try again.
+login.error.passwordrequired=Password is required
+login.error.usernamerequired=Username is required
+login.error.passwordtooshort=Password has to be at least 6 characters
+login.error.usernametooshort=Username has to be at least 6 characters
+login.error.invalidnew=Sorry, the username / password that you've entered is incorrect.
+login.error.passwordrequirednew=Password is needed
+login.error.usernamerequirednew=Username is needed
+login.error.passwordtooshortnew=Password must be at least 6 characters
+login.error.usernametooshortnew=Username must be at least 6 characters
+
+
+#footer
+footer.responsible.gaming.notice=William Hill is committed to supporting Responsible Gaming. Underage gambling is an offence.
+footer.wh.registered.notice=William Hill is operated by WHG (International) Limited, a company registered in Gibraltar. William Hill is licensed and regulated by the UK Gambling Commission (Number: 000-039225 R-319373-001) for customers in Great Britain, and licensed by the Gibraltar Government and regulated by the Gibraltar Gambling Commissioner (RGL no. 034 & 042) for all other customers.
+footer.wh.registered.office.notice=The registered office of William Hill is at 6/1 Waterport Place, Gibraltar, with registered company number 99191. William Hill is a registered I.B.A.S. bookmaker.
+footer.cookies.notice=We use cookies: This policy describes how we use them.
+footer.contactus.link.title=Contact Us
+footer.contactus.callus.telf=0300 123 0794
+footer.contactus.callus.telf.landline=0800 085 6296
+footer.contactus.callus.telf.abroad=+44 300 123 0794
+
+#search
+search.placeholder=Search for games...
+search.results.title=Search
+
+#deposit
+deposit.receipt.success.title=Deposits - Success
+
+#livechat
+livechat.searching.agent=Searching for an available agent
+livechat.please.wait=Please wait while we establish a connection to the Chat Server.
+livechat.session.already=
+
+#tupu
+tupu.title=Low Funds
+tupu.message.top=You only have
+tupu.message.bottom=to play with, would you like to make a deposit?
+tupu.button.notnow=Not now
+tupu.button.deposit=Deposit
+
+#games
+games.overlay.favourites.add.button=Add
+games.overlay.favourites.remove.button=Remove
+games.overlay.play.button=Play Now
+
+#firebase
+recently.played.no.games.info=You don’t have any recently played games. Why not try one of our most popular games below?
+
+#flash prompt
+flash.warning.message.normal=To play this game, you'll need to allow Adobe Flash to run. Your browser should prompt you, then you'll be all set. Once you've enabled Flash, you'll need to relaunch the game.
+flash.button.normal=Install Flash
+
+#registration
+country=United Kingdom
+
+#
+		# HEADER AND ACCOUNT MENU #
+	#
+label.main.balance=Main balance
+label.sub.main=Gaming & Sports
+label.bonus=Bonus:
+label.option=Total:
+label.option.deposit=Deposit
+label.option.balance.TRANSFER=Balance Transfer
+label.option.withdraw=Withdraw
+label.option.reverse.withdrawal=Reverse Withdrawal
+label.option.transactions=Transactions
+label.option.gambling.conrols= Gambling Controls
+label.option.log.out=Log Out
+label.account.id=Account ID

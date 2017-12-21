@@ -1,0 +1,87 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.rupoland</groupId>
+    <artifactId>analytics</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <cucumber.version>1.2.5</cucumber.version>
+        <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+        <maven-cnfg-source.version>1.7</maven-cnfg-source.version>
+        <maven-cnfg-target.version>1.7</maven-cnfg-target.version>
+        <gaming-pom.version>1.0-SNAPSHOT</gaming-pom.version>
+
+        <assertj.version>3.8.0</assertj.version>
+        <cucumber-junit.version>1.2.5</cucumber-junit.version>
+        <json.version>20170516</json.version>
+        <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+        <mongodb.version>3.4.2</mongodb.version>
+        <properties.version>2.0.RC5</properties.version>
+        <rest-assured.version>3.0.3</rest-assured.version>
+        <selenide.version>4.6</selenide.version>
+        <slf4j.version>1.7.24</slf4j.version>
+        <sonar.host.url>http://int-api-sonarqube.cxp.williamhill.plc</sonar.host.url>
+        <surefire.version>2.20</surefire.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <test.environment>PROD</test.environment>
+        <test.tags>@desktop</test.tags>
+        <test.browser>chrome</test.browser>
+        <test.game>Mayfair Roulette</test.game>
+
+        <cucumber.options>
+            --glue classpath:com.grandparade.step_definitions
+            --glue classpath:com.grandparade.common
+            --tags ${test.tags}
+        </cucumber.options>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${maven-cnfg-source.version}</source>
+                    <target>${maven-cnfg-target.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>${selenide.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.qatools.commons</groupId>
+            <artifactId>properties</artifactId>
+            <version>${properties.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber-junit.version}</version>
+        </dependency>
+    </dependencies>
+</project>
