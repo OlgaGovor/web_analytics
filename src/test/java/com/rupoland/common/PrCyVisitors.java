@@ -2,7 +2,6 @@ package com.rupoland.common;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
-import com.rupoland.BaseTest;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class Hooks extends BaseTest {
+public class PrCyVisitors {
 
     String csvFile = "website.csv";
     String resultFile = "results.csv";
@@ -24,7 +23,7 @@ public class Hooks extends BaseTest {
     String resultFilePath;
     private String baseUrl = "https://a.pr-cy.ru/";
 
-    public Hooks() {
+    public PrCyVisitors() {
         File resourcesDirectory = new File("src/test/resources");
 
         csvFilePath = new File(resourcesDirectory.getAbsolutePath() + "/" + csvFile).getPath();
@@ -91,11 +90,15 @@ public class Hooks extends BaseTest {
         WebElement input = getElement(By.xpath("//form[@id='analysis']//input"));
         input.clear();
         input.sendKeys(websiteName);
-        getElement(By.xpath("//form[@id='analysis']//button[@type='submit']")).click();
+        try {
+            getElement(By.xpath("//form[@id='analysis']//button[@type='submit']")).click();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void testFirst() throws IOException, InterruptedException {
+    public void retrieveVisitorsForSites() throws IOException, InterruptedException {
         List<String> websiteName = getWebsiteNames();
         HashMap<String, String> numberOfUsersPerSite = new LinkedHashMap<>();
 
