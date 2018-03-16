@@ -57,7 +57,7 @@ public class PrCyVisitors {
 
     public String checkWebsite(String websiteName) throws InterruptedException {
         submitRequest(websiteName);
-        Thread.sleep(3000);
+        Thread.sleep(4000);
 
         checkAndClosePopUp();
 
